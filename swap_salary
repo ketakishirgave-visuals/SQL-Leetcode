@@ -1,0 +1,10 @@
+-- explanation:
+-- case expression swaps values safely
+-- without using temporary variables
+
+update salary
+set sex =
+    case
+        when sex = 'f' then 'm'
+        when sex = 'm' then 'f'
+    end;
