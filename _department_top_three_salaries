@@ -1,0 +1,17 @@
+-- explanation:
+-- dense_rank ensures ties are included
+-- top three salaries are selected per department
+
+select department,
+       employee,
+       salary
+from (
+    select d.name as department,
+           e.name as employee,
+           e.salary,
+           dense_rank() over (partition by d.name order by e.salary desc) as rnk
+    from employee e
+    join department d
+      on e.departmentid = d.id
+) t
+where rnk <= 3;
