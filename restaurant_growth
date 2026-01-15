@@ -1,0 +1,11 @@
+-- explanation:
+-- self join creates a 7-day rolling window
+-- average amount is calculated per day
+
+select c1.visited_on,
+       round(avg(c2.amount), 2) as average_amount
+from customer c1
+join customer c2
+  on c2.visited_on between date_sub(c1.visited_on, interval 6 day)
+                       and c1.visited_on
+group by c1.visited_on;
