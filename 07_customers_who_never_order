@@ -1,0 +1,16 @@
+-- explanation:
+-- left join keeps all customers
+-- null order ids indicate no orders placed
+
+select c.name
+from customers c
+left join orders o
+  on c.customerid = o.customerid
+where o.id is null;
+
+-- alternate method
+select name
+from customers
+where customerid not in (
+    select customerid from orders
+);
