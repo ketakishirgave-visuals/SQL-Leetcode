@@ -1,0 +1,13 @@
+-- explanation:
+-- lead is used to compare the current row
+-- with the next two rows to detect consecutive values
+
+select distinct num
+from (
+    select num,
+           lead(num, 1) over (order by id) as n1,
+           lead(num, 2) over (order by id) as n2
+    from logs
+) t
+where num = n1
+  and num = n2;
