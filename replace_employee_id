@@ -1,0 +1,8 @@
+-- explanation:
+-- left join ensures employees without unique ids are kept
+
+select u.unique_id,
+       e.name
+from employees e
+left join employeeuni u
+  on e.id = u.id;
