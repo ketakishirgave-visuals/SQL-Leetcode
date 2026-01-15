@@ -1,0 +1,15 @@
+-- explanation:
+-- rolling 7-day sum is calculated per account
+-- transactions exceeding the threshold are flagged
+
+select distinct transaction_id
+from (
+    select transaction_id,
+           sum(amount) over (
+               partition by account_id
+               order by transaction_date
+               range between interval 6 day preceding and current row
+           ) as total_7d
+    from transactions
+) t
+where total_7d > 10000;
