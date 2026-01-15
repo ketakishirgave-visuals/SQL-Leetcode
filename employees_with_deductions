@@ -1,0 +1,10 @@
+-- explanation:
+-- total worked time is calculated per employee
+-- having is used since aggregates cannot be filtered in where
+
+select e.employee_id
+from employees e
+join logs l
+  on e.employee_id = l.employee_id
+group by e.employee_id, e.needed_hours
+having sum(l.out_time - l.in_time) < e.needed_hours;
