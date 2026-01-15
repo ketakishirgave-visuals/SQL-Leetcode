@@ -1,0 +1,7 @@
+-- explanation:
+-- rank assigns the same rank to duplicate scores
+-- gaps are allowed after ties
+
+select score,
+       rank() over (order by score desc) as rnk
+from scores;
