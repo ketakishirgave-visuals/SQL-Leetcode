@@ -1,0 +1,9 @@
+-- explanation:
+-- conditional aggregation separates approved and total amounts
+
+select date_format(trans_date, '%y-%m') as month,
+       country,
+       count(*) as total_transactions,
+       sum(case when state = 'approved' then amount else 0 end) as approved_amount
+from transactions
+group by month, country;
