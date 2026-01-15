@@ -1,0 +1,12 @@
+-- explanation:
+-- lag fetches the previous day's temperature
+-- current day is compared with yesterday
+
+select id
+from (
+    select id,
+           temperature,
+           lag(temperature) over (order by recorddate) as prev_temp
+    from weather
+) t
+where temperature > prev_temp;
