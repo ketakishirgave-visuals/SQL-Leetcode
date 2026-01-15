@@ -1,0 +1,14 @@
+-- explanation:
+-- id minus row_number creates grouping for consecutive rows
+-- only groups of length 3 or more are kept
+
+select id,
+       visit_date,
+       people
+from (
+    select *,
+           count(*) over (partition by id - row_number() over (order by id)) as seq_len
+    from stadium
+    where people >= 100
+) t
+where seq_len >= 3;
