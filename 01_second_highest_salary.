@@ -1,0 +1,17 @@
+-- explanation:
+-- dense_rank is used so duplicate salaries are handled correctly
+-- and the second highest salary is returned even if ties exist
+
+select salary
+from (
+    select salary,
+           dense_rank() over (order by salary desc) as rnk
+    from employee
+) t
+where rnk = 2;
+
+-- alternate method
+
+select max(salary) as second_highest_salary
+from employee
+where salary < (select max(salary) from employee);
