@@ -1,0 +1,12 @@
+-- explanation:
+-- salaries are ranked in descending order
+-- the row matching the required rank is returned
+
+with ranked_salaries as (
+    select salary,
+           dense_rank() over (order by salary desc) as rnk
+    from employee
+)
+select salary
+from ranked_salaries
+where rnk = n;
