@@ -1,0 +1,14 @@
+-- explanation:
+-- employees with a primary flag are selected
+-- employees with only one department are also included
+
+select employee_id,
+       department_id
+from employee
+where primary_flag = 'y'
+   or employee_id in (
+       select employee_id
+       from employee
+       group by employee_id
+       having count(*) = 1
+   );
