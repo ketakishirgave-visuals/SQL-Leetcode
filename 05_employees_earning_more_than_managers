@@ -1,0 +1,9 @@
+-- explanation:
+-- self join is used to compare an employee
+-- with their manager's salary
+
+select e.name
+from employee e
+join employee m
+  on e.managerid = m.id
+where e.salary > m.salary;
